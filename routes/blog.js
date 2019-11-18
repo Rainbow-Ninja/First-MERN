@@ -7,6 +7,7 @@ require("../models/Blog");
 const Blog = mongoose.model("blogs");
 
 router.get("/", (req, res) => {
+  console.log("------IM HERE------")
   Blog.find()
     .then(blogs => {
       console.log(blogs);
