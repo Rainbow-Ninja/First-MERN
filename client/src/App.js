@@ -25,6 +25,41 @@ class App extends Component {
 
   }
 
+  handledeletedBlog = id => {
+    // create a copy of the existing blogs array
+    const index = this.state.blogs.findIndex(blog => blog._id === id);
+    const blogs = [...this.state.blogs];
+    blogs.splice(index, 1);
+    this.setState({
+        blogs: blogs
+    });
+};
+
+handleEdit = e => {
+          e.preventDefault();
+          // create a variable that should be passed to the database
+          var blog = {
+              _id: this.state._id,
+              title: this.state.title,
+              description: this.state.description
+          };
+          axios
+              .put("/api/blogs", blog)
+              .then(response => {
+                  const updatedBlogs = this.props.blogs.map(blog => {
+                      if (blog._id === response.data._id) {
+                          return response.data;
+                      }
+                      return blog;
+                  });
+                  // close the pop up window
+                  this.closeModal();
+                  // update the state with new set of blogs
+                  this.props.handleBlogs(updatedBlogs);
+              })
+              .catch(err => console.log(err));
+      };
+
   render() {
     const {blogs} = this.state;
     return (
@@ -47,10 +82,10 @@ class App extends Component {
             <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
               {/* form component to add new blog */}
               <Form handleNewBlog={this.handleNewBlog} />
-              <Listing blogs={blogs} handleBlogs={this.handleBlogs}/>
+              <Listing blogs={blogs} handleBlogs={this.handleBlogs} handledeletedBlog=(this.handledeltedBlog}/>
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center', position: 'sticky', bottom: "0" }}>Ant Design ©2018 Created by Ant UED</Footer>
+          <Footer style={{ textAlign: 'center', position: 'sticky', bottom: "0" }}>Hello Footer</Footer>
         </Layout>
       </div>
     );
