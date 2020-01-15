@@ -58,7 +58,7 @@ class Listing extends Component {
             .then(() => {
                 // instead of making a get request to fetch blogs again loop through the existing blogs in the state (App.js) and pass the blog that matches the id requested
                 // a callback method in App.js is called to remove the blog from existing blogs in the state
-                this.props.handledeletedBlog(blog._id);
+                this.props.handleDeletedBlog(blog._id);
             })
             .catch(console.log);
     };

@@ -4,6 +4,7 @@ import {Layout, Menu} from "antd";
 import './App.css';
 import Form from "./components/Form";
 import Listing from "./components/Listing";
+import axios from "axios";
 
 const { Header, Content, Footer} = Layout;
 
@@ -25,7 +26,7 @@ class App extends Component {
 
   }
 
-  handledeletedBlog = id => {
+  handleDeletedBlog = id => {
     // create a copy of the existing blogs array
     const index = this.state.blogs.findIndex(blog => blog._id === id);
     const blogs = [...this.state.blogs];
@@ -82,7 +83,7 @@ handleEdit = e => {
             <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
               {/* form component to add new blog */}
               <Form handleNewBlog={this.handleNewBlog} />
-              <Listing blogs={blogs} handleBlogs={this.handleBlogs} handledeletedBlog=(this.handledeltedBlog}/>
+              <Listing blogs={blogs} handleBlogs={this.handleBlogs} handleDeletedBlog={this.handleDeletedBlog}/>
             </div>
           </Content>
           <Footer style={{ textAlign: 'center', position: 'sticky', bottom: "0" }}>Hello Footer</Footer>
